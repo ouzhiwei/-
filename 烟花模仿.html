@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>firework</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .firework {
+            position: absolute;
+            width: 15px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: red;
+        }
+
+        .fireworks {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: absolute;
+            background-color: red;
+        }
+
+        .info h1 {
+            color: red;
+            position: absolute;
+            left: 0;
+            top: 0;
+            
+        }
+
+        .info {
+            display: none;
+        }
+
+        .tips {
+            color: red;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            font-size: 25px;
+            font-family: 楷体;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tips">请点击屏幕</div>
+    <div class="info">
+        <h1>讲真的,会不会是我被鬼迷心窍了<br>敷衍了太多,要怎么不难过.要你亲口说,别只剩沉默</br>或许你早就回答了我!</h1>
+    </div>
+    <script type="text/javascript">
+        infor = document.getElementsByClassName('info')[0];
+        infors = document.getElementsByTagName('h1')[0];
+        document.onclick = function (ev) {
+            infors.style.color = color();
+            infor.style.display = "block";
+            var ev = ev || window.event;
+            console.log();
+            var oDiv = document.createElement("div");
+            oDiv.className = "firework"
+            x = ev.clientX;
+            y = ev.clientY;
+            oDiv.style.left = x + "px";
+            oDiv.style.backgroundColor = color();
+            oDiv.style.top = document.body.clientHeight + "px";
+            document.body.appendChild(oDiv);
+
+            var speed = 10;
+            var timer = setInterval(function () {
+                oDiv.style.top = oDiv.offsetTop - speed + "px";
+                if (oDiv.offsetTop <= ev.clientY) {
+                    oDiv.offsetTop = ev.clientY;
+                    clearInterval(timer);
+                    document.body.removeChild(oDiv);
+                    firework(x, y);
+                }
+            }, 1000 / 80)
+
+
+
+
+            function firework(x, y) {
+                var n = Math.ceil(Math.random() * 50) + 25;
+                var sDiv = [];
+                for (var i = 0; i < n; i++) {
+                    sDiv[i] = document.createElement("div");
+                    sDiv[i].className = "fireworks";
+                    sDiv[i].style.left = x + "px";
+                    sDiv[i].style.top = y + "px";
+                    sDiv[i].style.backgroundColor = color();
+                    sDiv[i].speedx = Math.ceil(Math.random() * 20) - 10;
+                    sDiv[i].speedy = Math.ceil(Math.random() * 20) - 10;
+                    document.body.appendChild(sDiv[i]);
+                }
+
+
+
+                setInterval(function () {
+                    for (var i = 0; i < n; i++) {
+
+                        sDiv[i].style.left = sDiv[i].offsetLeft + sDiv[i].speedx + "px";
+                        sDiv[i].style.top = sDiv[i].offsetTop + sDiv[i].speedy + "px";
+
+                        if (sDiv[i].speedy < 30) {
+                            sDiv[i].speedy++;
+                        }
+
+
+                        if (sDiv[i].offsetLeft < 0 || sDiv[i].offsetLeft > document.body.offsetWidth || sDiv[i].offsetTop > document.body.offsetHeight) {
+                            document.body.removeChild(sDiv[i]);
+                        }
+                    }
+                }, 1000 / 80)
+            }
+        }
+
+
+        function color() {
+            var r = Math.ceil(Math.random() * 245) + 10;
+            var g = Math.ceil(Math.random() * 245) + 10;
+            var b = Math.ceil(Math.random() * 245) + 10;
+            return "rgb(" + r + "," + g + " , " + b + ")";//豆豆加加 中间放变量;0.
+        }
+
+
+    </script>
+</body>
+
+</html>
