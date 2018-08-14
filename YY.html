@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+    <style>
+        .container{
+            width: 250px;
+            height: 250px;
+            background:red;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <input type="number" v-model="w">
+        <input type="number" v-model="h">
+        <div class="container" v-bind:style="{width:w+'px',height:h+'px'}">杨雨小傻子</div>
+    </div>
+   
+    <script>
+        new Vue({
+            el:".box",
+            data:{
+                w:250,
+                h:250
+            }
+        })
+    </script>
+</body>
+</html>
